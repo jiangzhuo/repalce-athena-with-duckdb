@@ -172,36 +172,42 @@ We used Lambda with 128M/512M/832M/3008M memory.
 
 #### Duration vs Cost for SQL1
 ![Duration vs Cost.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/566477/79de368e-1371-200b-31ad-926f6dd51382.png)
+
 The vertical axis is the cost of Lambda and the horizontal axis is the time of execution.
 
 For SQL1, Lambda always spends more than Athena (blue line in the figure) and takes an exceptionally long execution time of more than 30s in the case of insufficient memory, and it is observed that all 128M of memory is exhausted.
 
 #### Duration vs Cost for SQL2
 ![Duration vs Cost (1).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/566477/6d77e758-f280-33c4-1675-61f56e7854a7.png)
+
 The vertical axis is the cost of Lambda and the horizontal axis is the time of execution.
 
 For SQL2, as the amount of data increases (because there is an extra column involved in the calculation), the price of Athena is around 0.0004, which is **less than 50% or even 25%** of the price of Athena when we don't waste memory (512M/832M).
 
 #### Duration vs Cost for SQL3
 ![Duration vs Cost (2).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/566477/ab42a336-00cc-d8f9-0d7c-20cd2bd3c5db.png)
+
 The vertical axis is the cost of Lambda and the horizontal axis is the time of execution.
 
 For SQL3, with the further increase in data volume, my solution costs less than **15%** of Athena's in a 512M environment.
 
 #### Duration vs Cost for SQL4
 ![Duration vs Cost (3).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/566477/f5be2524-f70a-bbbb-7b14-0dc05f42cf3e.png)
+
 The vertical axis is the cost of Lambda and the horizontal axis is the time of execution.
 
 For SQL4, Athena's price has increased further, but my solution has not changed much. 512M memory Lambda solution costs less than **14%** of Athena's
 
 #### Data Scanned vs Cost
 ![Data Scanned vs Cost.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/566477/0eda2402-c1e6-2039-fe45-bf487f6604cf.png)
+
 The horizontal axis is the amount of data scanned and the vertical axis is the spend. This is done in a 512M memory environment.
 
 We can know that as the amount of data increases, the spending also increases because the Lambda execution time grows, and the growth of Lamda execution time mainly comes from reading data from S3.
 
 #### Data Scanned vs Ratio of My Solution spending to Athena spending
 ![Data Scanned vs L_A cost.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/566477/b9a29e90-5396-d7e3-97a7-014f5df743f9.png)
+
 The horizontal axis is the amount of data scanned, and the vertical axis is the ratio of my program's spend to Athena's spend.
 
 This data comes from running SQL1/2/3 and 4 on six months, one year and two years of data, respectively, in an environment that is still Lambda with 512MB of memory.
